@@ -53,39 +53,7 @@ public class Serial extends CordovaPlugin {
 	private UsbManager manager;
 	// The current driver that handle the serial port
 	private UsbSerialDriver driver;
-	// The serial port that will be used in this plugin
-	private UsbSerialPort port;
-	// Read buffer, and read params
-	private static final int READ_WAIT_MILLIS = 200;
-	private static final int BUFSIZ = 4096;
-	private final ByteBuffer mReadBuffer = ByteBuffer.allocate(BUFSIZ);
-	// Connection info
-	private int baudRate;
-	private int dataBits;
-	private int stopBits;
-	private int parity;
-	private boolean setDTR;
-	private boolean setRTS;
-	private boolean sleepOnPause;
 	
-	// callback that will be used to send back data to the cordova app
-	private CallbackContext readCallback;
-	
-	// I/O manager to handle new incoming serial data
-	private final ExecutorService mExecutor = Executors.newSingleThreadExecutor();
-	private SerialInputOutputManager mSerialIoManager;
-	private final SerialInputOutputManager.Listener mListener =
-			new SerialInputOutputManager.Listener() {
-				@Override
-				public void onRunError(Exception e) {
-					Log.d(TAG, "Runner stopped.");
-				}
-				@Override
-				public void onNewData(final byte[] data) {
-					Serial.this.updateReceivedData(data);
-				}
-			};
-
 	/**
 	 * Overridden execute method
 	 * @param action the string representation of the action to execute
