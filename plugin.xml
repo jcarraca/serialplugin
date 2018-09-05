@@ -21,10 +21,8 @@
             </feature>
         </config-file>
         <source-file src="src/android/fr/drangies/cordova/serial/Serial.java" target-dir="src/fr/drangies/cordova/serial" />
-		<source-file src="src/android/fr/drangies/cordova/serial/UsbBroadcastReceiver.java" target-dir="src/fr/drangies/cordova/serial" />
 		<source-file src="src/android/fr/drangies/cordova/serial/libs/MorphoSmart_SDK_6.17.3.0.jar" target-dir="libs" />
 		<source-file src="src/android/fr/drangies/cordova/serial/libs/android-support-v4.jar" target-dir="libs" />
 		<source-file src="src/android/fr/drangies/cordova/serial/libs/MSO_Secu.jar" target-dir="libs" />
-		<source-file src="src/android/fr/drangies/cordova/serial/libs/usbseriallibrary.jar" target-dir="libs" />
     </platform>
 </plugin>

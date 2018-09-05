@@ -13,17 +13,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.hoho.android.usbserial.driver.CdcAcmSerialDriver;
-import com.hoho.android.usbserial.driver.Ch34xSerialDriver;
-import com.hoho.android.usbserial.driver.Cp21xxSerialDriver;
-import com.hoho.android.usbserial.driver.FtdiSerialDriver;
-import com.hoho.android.usbserial.driver.ProbeTable;
-import com.hoho.android.usbserial.driver.ProlificSerialDriver;
-import com.hoho.android.usbserial.driver.UsbSerialDriver;
-import com.hoho.android.usbserial.driver.UsbSerialPort;
-import com.hoho.android.usbserial.driver.UsbSerialProber;
-import com.hoho.android.usbserial.util.SerialInputOutputManager;
-
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -72,15 +61,16 @@ public class Serial extends CordovaPlugin {
 		if (ACTION_REQUEST_PERMISSION.equals(action)) {
 			
 			USBManager.getInstance().initialize(cordova.getActivity(), "com.morpho.morphosample.USB_ACTION", true);
-			if (!USBManager.getInstance().isDevicesHasPermission()) {
-				callbackContext.error("No Permission!");
+			if (USBManager.getInstance().isDevicesHasPermission()) {
+				callbackContext.success("Permission granted!");
+				morphoDevice = new MorphoDevice();
+				return true;
+			} else {
+				callbackContext.error("Permission denied!");
 				return false;
 			}
-        
-			morphoDevice = new MorphoDevice();
-			
-			return true;
 		}
+		
 		return false;
 	}
 }
