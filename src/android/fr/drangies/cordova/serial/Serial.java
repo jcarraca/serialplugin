@@ -34,6 +34,9 @@ import android.hardware.usb.UsbManager;
 import android.util.Base64;
 import android.util.Log;
 
+import com.morpho.morphosmart.sdk.*;
+import com.morpho.android.usb.*;
+
 
 /**
  * Cordova plugin to communicate with the android serial port
@@ -53,7 +56,9 @@ public class Serial extends CordovaPlugin {
 	private UsbManager manager;
 	// The current driver that handle the serial port
 	private UsbSerialDriver driver;
-	
+	// Morpho Device
+	private MorphoDevice morphoDevice;
+  
 	/**
 	 * Overridden execute method
 	 * @param action the string representation of the action to execute
@@ -69,13 +74,17 @@ public class Serial extends CordovaPlugin {
 		// request permission
 		if (ACTION_REQUEST_PERMISSION.equals(action)) {
 			JSONObject opts = arg_object.has("opts")? arg_object.getJSONObject("opts") : new JSONObject();
+			
 			requestPermission(opts, callbackContext);
+			
+			morphoDevice = new MorphoDevice();
+			USBManager.getInstance().initialize(cordova.getActivity(), "com.morpho.morphosample.USB_ACTION");
+			
 			return true;
 		}
-		// the action doesn't exist
 		return false;
 	}
-
+	
 	/**
 	 * Request permission the the user for the app to use the USB/serial port
 	 * @param callbackContext the cordova {@link CallbackContext}
