@@ -54,23 +54,27 @@ public class Serial extends CordovaPlugin {
 	 */
 	@Override
 	public boolean execute(String action, JSONArray args, final CallbackContext callbackContext) throws JSONException {
-		Log.d(TAG, "Action: " + action);
+		Log.d(TAG, "Action1: " + action);
 		JSONObject arg_object = args.optJSONObject(0);
-		
+		Log.d(TAG, "Action2: " + action);
 		// request permission
 		if (ACTION_REQUEST_PERMISSION.equals(action)) {
-			
-			USBManager.getInstance().initialize(cordova.getActivity(), "com.morpho.morphosample.USB_ACTION", true);
+			Log.d(TAG, "Action3: " + action);
+			USBManager.getInstance().initialize(this.cordova.getActivity().getApplicationContext(), "fr.drangies.cordova.serial.USB_ACTION", true);
 			if (USBManager.getInstance().isDevicesHasPermission()) {
+				Log.d(TAG, "Action4: " + action);
 				callbackContext.success("Permission granted!");
 				morphoDevice = new MorphoDevice();
+				Log.d(TAG, "Action5: " + action);
 				return true;
 			} else {
+				Log.d(TAG, "Action6: " + action);
 				callbackContext.error("Permission denied!");
+				Log.d(TAG, "Action7: " + action);
 				return false;
 			}
 		}
-		
+		Log.d(TAG, "Action8: " + action);
 		return false;
 	}
 }
